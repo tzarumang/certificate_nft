@@ -1,13 +1,43 @@
 [package]
 name = "certificate_nft"
 version = "1.0.0"
-#edition = "2024.beta"
-#license = "MIT"
-#authors = ["definitelytzar.sui"]
-#description = "Non-transferable NFT system for certificates and badges on Sui blockchain"
+edition = "2024.beta"
+license = "MIT"
+authors = ["Tzar Umang <tzarumang@gmail.com>"]
+description = "Non-transferable NFT system for certificates and badges on Sui blockchain"
 
 [dependencies]
 Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "framework/testnet" }
 
 [addresses]
 certificate_nft = "0x0"
+sui = "0x2"
+std = "0x1"
+
+[dev-dependencies]
+# Add any development dependencies here if needed
+
+[dev-addresses]
+# Development addresses for testing
+certificate_nft = "0x0"
+
+# Build configuration
+[build]
+# Uncomment and modify these settings as needed
+# bytecode-version = 6
+# compiler-version = "1.26.0"
+
+# Publish configuration
+[publish]
+# List of addresses that are allowed to publish this package
+# publishers = ["0xYourPublisherAddress"]
+
+# Lock file settings
+[tool.move]
+# Enable/disable dependency resolution caching
+# cache = true
+
+# Testing configuration
+[tool.sui]
+# Uncomment to specify which network to use for testing
+# network = "testnet"

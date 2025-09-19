@@ -7,7 +7,7 @@ module certificate_nft::certificate {
     const ENotAuthorized: u64 = 1;
 
     // Certificate struct - this is the NFT
-    struct Certificate has key {
+    public struct Certificate has key {
         id: UID,
         name: String,
         description: String,
@@ -20,19 +20,19 @@ module certificate_nft::certificate {
     }
 
     // Capability for issuing certificates
-    struct IssuerCap has key {
+    public struct IssuerCap has key {
         id: UID,
         issuer_name: String,
         issuer_address: address,
     }
 
     // Admin capability for creating new issuers
-    struct AdminCap has key {
+    public struct AdminCap has key {
         id: UID,
     }
 
     // Events
-    struct CertificateIssued has copy, drop {
+    public struct CertificateIssued has copy, drop {
         certificate_id: address,
         recipient: address,
         issuer: address,
@@ -40,7 +40,7 @@ module certificate_nft::certificate {
         issue_date: u64,
     }
 
-    struct IssuerCreated has copy, drop {
+    public struct IssuerCreated has copy, drop {
         issuer_cap_id: address,
         issuer_name: String,
         issuer_address: address,
@@ -56,7 +56,7 @@ module certificate_nft::certificate {
     }
 
     // Create a new issuer capability
-    public fun create_issuer(
+    public entry fun create_issuer(
         _admin_cap: &AdminCap,
         issuer_name: vector<u8>,
         issuer_address: address,
@@ -78,7 +78,7 @@ module certificate_nft::certificate {
     }
 
     // Issue a certificate to a recipient
-    public fun issue_certificate(
+    public entry fun issue_certificate(
         issuer_cap: &IssuerCap,
         recipient: address,
         name: vector<u8>,
@@ -118,7 +118,7 @@ module certificate_nft::certificate {
     }
 
     // Batch issue certificates
-    public fun batch_issue_certificates(
+    public entry fun batch_issue_certificates(
         issuer_cap: &IssuerCap,
         recipients: vector<address>,
         names: vector<vector<u8>>,
@@ -132,7 +132,7 @@ module certificate_nft::certificate {
         assert!(issuer_cap.issuer_address == sui::tx_context::sender(ctx), ENotAuthorized);
         
         let len = std::vector::length(&recipients);
-        let i = 0;
+        let mut i = 0;
         
         while (i < len) {
             let recipient = *std::vector::borrow(&recipients, i);
@@ -215,7 +215,7 @@ module certificate_nft::certificate {
     }
 
     // Emergency function to destroy a certificate (only by recipient)
-    public fun destroy_certificate(certificate: Certificate, ctx: &sui::tx_context::TxContext) {
+    public entry fun destroy_certificate(certificate: Certificate, ctx: &sui::tx_context::TxContext) {
         assert!(certificate.recipient == sui::tx_context::sender(ctx), ENotAuthorized);
         let Certificate { 
             id, 
