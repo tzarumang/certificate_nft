@@ -1,10 +1,10 @@
 [package]
 name = "certificate_nft"
-version = "1.0.0"
-edition = "2024.beta"
-license = "MIT"
-authors = ["definitelytzar.sui"]
-description = "Non-transferable NFT system for certificates and badges on Sui blockchain"
+#version = "1.0.0"
+#edition = "2024.beta"
+#license = "MIT"
+#authors = ["definitelytzar.sui"]
+#description = "Non-transferable NFT system for certificates and badges on Sui blockchain"
 
 [dependencies]
 Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "framework/testnet" }
@@ -19,7 +19,7 @@ std = "0x1"
 
 [dev-addresses]
 # Development addresses for testing
-certificate_nft = "0x0"
+#certificate_nft = "0x0"
 
 # Build configuration
 [build]
